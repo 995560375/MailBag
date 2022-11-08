@@ -1,8 +1,18 @@
 {
-    "smtp" : {
-    "host" : "mail.mydomain.com", "port" : 999,
-    "auth" : { "user" : "user@domain.com", "pass" : "xxx" } },
-    "imap" : {
-    "host" : "mail.mydomain.com", "port" : 999,
-    "auth" : { "user" : "user@domain.com", "pass" : "xxx" } }
+  "smtp" : {
+    "host" : "smtp-mail.outlook.com",
+    "port" : 587,
+    "auth" : {
+      "user" : "huikunzheng@outlook.com",
+      "pass" : "995560375WKzhkwk@"
     }
+  },
+  "imap" : {
+    "host" : "outlook.office365.com",
+    "port" : 993,
+    "auth" : {
+      "user" : "huikunzheng@outlook.com",
+      "pass" : "995560375WKzhkwk@"
+    }
+  }
+}
