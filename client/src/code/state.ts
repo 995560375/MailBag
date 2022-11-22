@@ -342,6 +342,32 @@ export function createState(inParentComponent) {
       this.setState({ contacts : cl, contactID : null, contactName : "", contactEmail : "" });
 
     }.bind(inParentComponent), /* End deleteContact(). */
+    
+    /**
+     * Delete the all currently viewed contact.
+     */
+    deleteAllContact : async function(): Promise<void> {
+
+      const contactsWorker: Contacts.Worker = new Contacts.Worker();
+      const contacts: Contacts.IContact[] = await contactsWorker.listContacts();
+      console.log("----------------------------")
+      console.log(contacts);
+      for(let i = 0; i < contacts.length; i++) {
+        console.log(contacts[i]._id);
+        //Delete from server.
+        this.state.showHidePleaseWait(true);
+        const contactsWorker: Contacts.Worker = new Contacts.Worker();
+        await contactsWorker.deleteContact(contacts[i]._id);
+        this.state.showHidePleaseWait(false);
+
+        // Remove from list.
+        const cl = this.state.contacts.filter((inElement) => inElement._id != contacts[i]._id);
+
+        // Update state.
+        this.setState({ contacts : cl, contactID : null, contactName : "", contactEmail : "" });
+      }
+      
+    }.bind(inParentComponent), /* End deleteContact(). */
 
 
     /**

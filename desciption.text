@@ -1,0 +1,17 @@
+Node.js version: v16.14.0
+Browser: Chrome
+Chrome version: 107.0.5304.107
+Operating system: macOS Monterey Version 12.4
+Computer architecture: x86 chips (2 GHz Quad-Core Intel Core i5)
+Successfully run in Safari, Chorme,Firefox
+
+Test: use Postman to test the REST
+New feature: delete all the contacts
+
+AJAX:   1. Update a web page without reloading the page
+        2. Request data from a server - after the page has loaded
+        3. Receive data from a server - after the page has loaded
+        4. Send data to a server - in the background
+
+REST: It is a interface that make the communitaction between server and client super easy.
+

@@ -21,6 +21,10 @@ const Toolbar = ({ state }) => (
       onClick={ state.showAddContact } >
       <NewContactIcon style={{ marginRight:10 }} />New Contact
     </Button>
+    <Button variant="contained" color="primary" size="small" style={{ marginRight:10 }}
+      onClick={ state.deleteAllContact } >
+      <NewContactIcon style={{ marginRight:10 }} />Delete All Contacts
+    </Button>
   </div>
 
 );

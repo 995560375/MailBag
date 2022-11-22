@@ -25,11 +25,26 @@ async function getMailboxes() {
     baseComponent.state.addMailboxToList(inMailbox);
   });
 }
+// getMailboxes().then(function() {
+//   // Now go fetch the user's contacts.
+//   async function getContacts() {
+//     const contactsWorker: Contacts.Worker = new Contacts.Worker();
+//     const contacts: Contacts.IContact[] = await contactsWorker.listContacts();
+//     contacts.forEach((inContact) => {
+//       baseComponent.state.addContactToList(inContact);
+//     });
+//   }
+//   getContacts().then(() => baseComponent.state.showHidePleaseWait(false));
+// });
+
 getMailboxes().then(function() {
   // Now go fetch the user's contacts.
   async function getContacts() {
     const contactsWorker: Contacts.Worker = new Contacts.Worker();
     const contacts: Contacts.IContact[] = await contactsWorker.listContacts();
+    console.log("----------------------------")
+    contacts.sort((a: any, b: any) => a.name - b.name);
+    console.log(contacts);
     contacts.forEach((inContact) => {
       baseComponent.state.addContactToList(inContact);
     });
