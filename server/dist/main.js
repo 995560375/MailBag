@@ -46,30 +46,21 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-// Node imports.
 var path_1 = __importDefault(require("path"));
-// Library imports.
 var express_1 = __importDefault(require("express"));
-// App imports.
 var ServerInfo_1 = require("./ServerInfo");
 var IMAP = __importStar(require("./IMAP"));
 var SMTP = __importStar(require("./SMTP"));
 var Contacts = __importStar(require("./Contacts"));
-// Our Express app.
 var app = express_1.default();
-// Handle JSON in request bodies.
 app.use(express_1.default.json());
-// Serve the client.
 app.use("/", express_1.default.static(path_1.default.join(__dirname, "../../client/dist")));
-// Enable CORS so that we can call the API even from anywhere.
 app.use(function (inRequest, inResponse, inNext) {
     inResponse.header("Access-Control-Allow-Origin", "*");
     inResponse.header("Access-Control-Allow-Methods", "GET,POST,DELETE,OPTIONS");
     inResponse.header("Access-Control-Allow-Headers", "Origin,X-Requested-With,Content-Type,Accept");
     inNext();
 });
-// ---------- RESTful endpoint operations begin. ----------
-// Get list of mailboxes.
 app.get("/mailboxes", function (inRequest, inResponse) { return __awaiter(void 0, void 0, void 0, function () {
     var imapWorker, mailboxes, inError_1;
     return __generator(this, function (_a) {
@@ -95,7 +86,6 @@ app.get("/mailboxes", function (inRequest, inResponse) { return __awaiter(void 0
         }
     });
 }); });
-// Get list of messages in a mailbox (does NOT include bodies).
 app.get("/mailboxes/:mailbox", function (inRequest, inResponse) { return __awaiter(void 0, void 0, void 0, function () {
     var imapWorker, messages, inError_2;
     return __generator(this, function (_a) {
@@ -123,7 +113,6 @@ app.get("/mailboxes/:mailbox", function (inRequest, inResponse) { return __await
         }
     });
 }); });
-// Get a message's plain text body.
 app.get("/messages/:mailbox/:id", function (inRequest, inResponse) { return __awaiter(void 0, void 0, void 0, function () {
     var imapWorker, messageBody, inError_3;
     return __generator(this, function (_a) {
@@ -152,7 +141,6 @@ app.get("/messages/:mailbox/:id", function (inRequest, inResponse) { return __aw
         }
     });
 }); });
-// Delete a message.
 app.delete("/messages/:mailbox/:id", function (inRequest, inResponse) { return __awaiter(void 0, void 0, void 0, function () {
     var imapWorker, inError_4;
     return __generator(this, function (_a) {
@@ -181,7 +169,6 @@ app.delete("/messages/:mailbox/:id", function (inRequest, inResponse) { return _
         }
     });
 }); });
-// Send a message.
 app.post("/messages", function (inRequest, inResponse) { return __awaiter(void 0, void 0, void 0, function () {
     var smtpWorker, inError_5;
     return __generator(this, function (_a) {
@@ -207,7 +194,6 @@ app.post("/messages", function (inRequest, inResponse) { return __awaiter(void 0
         }
     });
 }); });
-// List contacts.
 app.get("/contacts", function (inRequest, inResponse) { return __awaiter(void 0, void 0, void 0, function () {
     var contactsWorker, contacts, inError_6;
     return __generator(this, function (_a) {
@@ -233,7 +219,6 @@ app.get("/contacts", function (inRequest, inResponse) { return __awaiter(void 0,
         }
     });
 }); });
-// Add a contact.
 app.post("/contacts", function (inRequest, inResponse) { return __awaiter(void 0, void 0, void 0, function () {
     var contactsWorker, contact, inError_7;
     return __generator(this, function (_a) {
@@ -259,7 +244,6 @@ app.post("/contacts", function (inRequest, inResponse) { return __awaiter(void 0
         }
     });
 }); });
-// Delete a contact.
 app.delete("/contacts/:id", function (inRequest, inResponse) { return __awaiter(void 0, void 0, void 0, function () {
     var contactsWorker, inError_8;
     return __generator(this, function (_a) {

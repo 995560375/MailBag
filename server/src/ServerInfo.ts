@@ -22,9 +22,11 @@ export interface IServerInfo {
 }
 
 
+// The configured server info.
 export let serverInfo: IServerInfo;
 
 
+//read
 const rawInfo: string = fs.readFileSync(path.join(__dirname, "../serverInfo.json"));
 serverInfo = JSON.parse(rawInfo);
 console.log("ServerInfo: ", serverInfo);

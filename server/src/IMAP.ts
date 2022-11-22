@@ -1,16 +1,22 @@
+// Library imports.
 import { ParsedMail } from "mailparser";
 const ImapClient = require("emailjs-imap-client");
 import { simpleParser } from "mailparser";
 
+// App imports.
 import { IServerInfo } from "./ServerInfo";
 
 
+// Define interface to describe a mailbox and optionally a specific message
+// to be supplied to various methods here.
 export interface ICallOptions {
   mailbox: string,
   id?: number
 }
 
 
+// Define interface to describe a received message.  Note that body is optional since it isn't sent when listing
+// messages.
 export interface IMessage {
   id: string,
   date: string,
@@ -20,18 +26,22 @@ export interface IMessage {
 }
 
 
+// Define interface to describe a mailbox.
 export interface IMailbox {
   name: string,
   path: string
 }
 
 
+// Disable certificate validation (less secure, but needed for some servers).
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 
+// The worker that will perform IMAP operations.
 export class Worker {
 
 
+  // Server information.
   private static serverInfo: IServerInfo;
 
 
@@ -86,6 +96,8 @@ export class Worker {
 
     await client.close();
 
+    // Translate from emailjs-imap-client mailbox objects to app-specific objects.  At the same time, flatten the list
+    // of mailboxes via recursion.
     const finalMailboxes: IMailbox[] = [];
     const iterateChildren: Function = (inArray: any[]): void => {
       inArray.forEach((inValue: any) => {
@@ -115,14 +127,18 @@ export class Worker {
 
     const client: any = await this.connectToServer();
 
+    // We have to select the mailbox first.  This gives us the message count.
     const mailbox: any = await client.selectMailbox(inCallOptions.mailbox);
     console.log(`IMAP.Worker.listMessages(): Message count = ${mailbox.exists}`);
 
+    // If there are no messages then just return an empty array.
     if (mailbox.exists === 0) {
       await client.close();
       return [ ];
     }
 
+    // Okay, there are messages, let's get 'em!  Note that they are returned in order by uid, so it's FIFO.
+    // noinspection TypeScriptValidateJSTypes
     const messages: any[] = await client.listMessages(
       inCallOptions.mailbox,
       "1:*",
@@ -131,6 +147,7 @@ export class Worker {
 
     await client.close();
 
+    // Translate from emailjs-imap-client message objects to app-specific objects.
     const finalMessages: IMessage[] = [];
     messages.forEach((inValue: any) => {
       finalMessages.push({

@@ -11,7 +11,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var path = __importStar(require("path"));
 // Library imports.
 var Datastore = require("nedb");
-// The worker that will perform contact operations.
 var Worker = /** @class */ (function () {
     /**
      * Constructor.

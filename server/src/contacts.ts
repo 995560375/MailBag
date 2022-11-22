@@ -1,6 +1,8 @@
+// Node imports.
 import * as path from "path";
 
 
+// Library imports.
 const Datastore = require("nedb");
 
 
@@ -14,6 +16,7 @@ export interface IContact {
 export class Worker {
 
 
+  // The Nedb Datastore instance for contacts.
   private db: Nedb;
 
 

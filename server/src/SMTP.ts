@@ -5,9 +5,11 @@ import { SendMailOptions, SentMessageInfo } from "nodemailer";
 import { IServerInfo } from "./ServerInfo";
 
 
+// The worker that will perform SMTP operations.
 export class Worker {
 
 
+  // Server information.
   private static serverInfo: IServerInfo;
 
 
